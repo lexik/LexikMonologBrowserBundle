@@ -1,0 +1,33 @@
+{
+    "name": "lexik/monolog-doctrine-bundle",
+    "type": "symfony-bundle",
+    "description": "",
+    "keywords": ["Symfony2", "bundle", "monolog", "logger", "doctrine"],
+    "homepage": "https://github.com/lexik/LexikMonologDoctrineBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jeremy Barthe",
+            "email": "j.barthe@lexik.fr"
+        },
+        {
+            "name": "Dev Lexik",
+            "email": "dev@lexik.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": ">=2.1,<2.3-dev",
+        "symfony/security-bundle": ">=2.1,<2.3-dev"
+    },
+    "require-dev": {
+        "symfony/framework-bundle": ">=2.1,<2.3-dev",
+        "monolog/monolog": "*",
+        "doctrine/dbal": "*"
+    },
+    "autoload": {
+        "psr-0": { "Lexik\\Bundle\\LexikMonologDoctrineBundle": "" }
+    },
+    "target-dir": "Lexik/Bundle/LexikMonologDoctrineBundle"
+}
