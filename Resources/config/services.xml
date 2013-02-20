@@ -4,17 +4,23 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
-        <parameter key="lexik_monolog_doctrine.example.class">Lexik\Bundle\LexikMonologDoctrineBundle\Example</parameter>
+        <parameter key="lexik_monolog_doctrine.handler.doctrine_dbal.class">Lexik\Bundle\LexikMonologDoctrineBundle\Handler\DoctrineDBALHandler</parameter>
+        <parameter key="lexik_monolog_doctrine.doctrine_dbal.connection.class">Doctrine\DBAL\Connection</parameter>
+        <parameter key="lexik_monolog_doctrine.doctrine_dbal.factory.class">Doctrine\DBAL\DriverManager</parameter>
     </parameters>
 
     <services>
-        <service id="lexik_monolog_doctrine.example" class="%lexik_monolog_doctrine.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="lexik_monolog_doctrine.doctrine_dbal.connection"
+                 class="%lexik_monolog_doctrine.doctrine_dbal.connection.class%"
+                 factory-class="%lexik_monolog_doctrine.doctrine_dbal.factory.class%"
+                 factory-method="getConnection">
+            <argument>%lexik_monolog_doctrine.doctrine.connection.configuration%</argument>
+        </service>
+
+        <service id="lexik_monolog_doctrine.handler.doctrine_dbal" class="%lexik_monolog_doctrine.handler.doctrine_dbal.class%">
+            <argument type="service" id="lexik_monolog_doctrine.doctrine_dbal.connection" />
+            <argument>%lexik_monolog_doctrine.doctrine.table_name%</argument>
         </service>
     </services>
-    -->
 </container>

@@ -28,6 +28,6 @@ class LexikMonologDoctrineExtension extends Extension
         $container->setParameter('lexik_monolog_doctrine.base_layout', $config['base_layout']);
 
         $container->setParameter('lexik_monolog_doctrine.doctrine.table_name', $config['doctrine']['table_name']);
-        $container->setParameter('lexik_monolog_doctrine.doctrine.connection', $config['doctrine']['connection']);
+        $container->setParameter('lexik_monolog_doctrine.doctrine.connection.configuration', $config['doctrine']['connection']);
     }
 }

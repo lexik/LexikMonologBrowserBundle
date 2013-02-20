@@ -26,7 +26,7 @@ class Configuration implements ConfigurationInterface
                     ->cannotBeEmpty()
                     ->defaultValue('LexikMonologDoctrineBundle::layout.html.twig')
                 ->end()
-                ->scalarNode('doctrine')
+                ->arrayNode('doctrine')
                     ->children()
                         ->scalarNode('table_name')->defaultValue('monolog_entries')->end()
                         ->arrayNode('connection')
