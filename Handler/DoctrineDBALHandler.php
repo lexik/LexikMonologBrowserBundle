@@ -44,6 +44,9 @@ class DoctrineDBALHandler extends AbstractProcessingHandler
      */
     protected function write(array $record)
     {
+        $record = $record['formatted'];
+        unset($record['context'], $record['extra']);
+
         $this->connection->insert($this->tableName, $record);
     }
 
