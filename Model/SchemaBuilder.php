@@ -33,6 +33,11 @@ class SchemaBuilder
         $entryTable->addColumn('level_name', 'string', array('length' => 255, 'notNull' => true));
         $entryTable->addColumn('message', 'text', array('notNull' => true));
         $entryTable->addColumn('datetime', 'datetime', array('notNull' => true));
+        $entryTable->addColumn('context', 'text');
+        $entryTable->addColumn('extra', 'text');
+        $entryTable->addColumn('server', 'text');
+        $entryTable->addColumn('post', 'text');
+        $entryTable->addColumn('get', 'text');
         $entryTable->setPrimaryKey(array('id'));
     }
 

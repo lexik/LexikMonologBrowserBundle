@@ -3,10 +3,13 @@
 namespace Lexik\Bundle\LexikMonologDoctrineBundle\Handler;
 
 use Monolog\Handler\AbstractProcessingHandler;
-use Monolog\Formatter\NormalizerFormatter;
 use Monolog\Logger;
+use Monolog\Processor\WebProcessor;
 
 use Doctrine\DBAL\Connection;
+
+use Lexik\Bundle\LexikMonologDoctrineBundle\Processor\WebExtendedProcessor;
+use Lexik\Bundle\LexikMonologDoctrineBundle\Formatter\NormalizerFormatter;
 
 /**
  * Handler to send messages to a database through Doctrine DBAL.
@@ -37,6 +40,9 @@ class DoctrineDBALHandler extends AbstractProcessingHandler
         $this->tableName  = $tableName;
 
         parent::__construct($level, $bubble);
+
+        $this->pushProcessor(new WebProcessor());
+        $this->pushProcessor(new WebExtendedProcessor());
     }
 
     /**
@@ -45,7 +51,6 @@ class DoctrineDBALHandler extends AbstractProcessingHandler
     protected function write(array $record)
     {
         $record = $record['formatted'];
-        unset($record['context'], $record['extra']);
 
         try {
             $this->connection->insert($this->tableName, $record);
