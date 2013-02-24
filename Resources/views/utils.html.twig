@@ -1,0 +1,20 @@
+{% macro render_level_label(level, label, attr) %}
+    {% set level_class = '' %}
+    {% if level == constant('Monolog\\Logger::DEBUG') %}
+    {% elseif level == constant('Monolog\\Logger::INFO') %}
+        {% set level_class = 'label-info' %}
+    {% elseif level == constant('Monolog\\Logger::NOTICE') %}
+        {% set level_class = 'label-info' %}
+    {% elseif level == constant('Monolog\\Logger::WARNING') %}
+        {% set level_class = 'label-warning' %}
+    {% elseif level == constant('Monolog\\Logger::ERROR') %}
+        {% set level_class = 'label-warning' %}
+    {% else %}
+        {% set level_class = 'label-important' %}
+    {% endif %}
+
+    {% set attr = (attr|default({}))|merge({ 'class': (attr.class|default('') ~ ' label ' ~ level_class)|trim}) %}
+    <span{% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+        {{ label }}
+    </span>
+{% endmacro %}

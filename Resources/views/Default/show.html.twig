@@ -1,0 +1,55 @@
+{% extends base_layout %}
+
+{% import "LexikMonologDoctrineBundle::utils.html.twig" as utils %}
+
+{% block monolog_doctrine_content %}
+    {{ block('log_head') }}
+    {{ block('log_content') }}
+{% endblock %}
+
+{% block log_head %}
+    <div class="page-header">
+        <h1>{{ log.message }}</h1>
+        {{ utils.render_level_label(log.level, (log.channel ~ '.' ~ log.levelName), { 'class': 'pull-right' }) }}
+        <strong>{{ log.date | date }}</strong>
+    </div>
+{% endblock %}
+
+{% block log_content %}
+<div class="tabbable tabs-left">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#extra" data-toggle="tab">Extra</a></li>
+        <li><a href="#context" data-toggle="tab">Context</a></li>
+        <li><a href="#request" data-toggle="tab">Request</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="extra">
+            {{ _self.render_data_table(log.extra) }}
+        </div>
+        <div class="tab-pane" id="context">
+            {{ _self.render_data_table(log.context) }}
+        </div>
+        <div class="tab-pane" id="request">
+            <h2>SERVER</h2>
+            {{ _self.render_data_table(log.serverData) }}
+            <h2>POST</h2>
+            {{ _self.render_data_table(log.postData) }}
+            <h2>GET</h2>
+            {{ _self.render_data_table(log.getData) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% macro render_data_table(data) %}
+    <table class="table table-striped">
+        <tbody>
+            {% for label, value in data %}
+                <tr>
+                    <th>{{ label }}</th>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}

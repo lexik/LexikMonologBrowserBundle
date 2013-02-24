@@ -1,22 +1,28 @@
 {% extends base_layout %}
 
+{% import "LexikMonologDoctrineBundle::utils.html.twig" as utils %}
+
 {% block monolog_doctrine_content %}
     <table class="table table-stripped">
         <thead>
             <tr>
                 <th>{{ knp_pagination_sortable(pagination, 'Datetime', 'l.datetime') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Level', 'l.level_name') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'Message', 'l.message') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Channel', 'l.channel') }}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             {% for log in pagination %}
             <tr>
                 <td>{{ log.datetime }}</td>
-                <td>{{ log.level_name }}</td>
-                <td>{{ log.message }}</td>
-                <td>{{ log.channel }}</td>
+                <td>
+                    <a href="{{ path('lexik_monolog_doctrine_show', { 'id': log.id }) }}">
+                        {{ log.message }}
+                    </a>
+                </td>
+                <td>
+                    {{ utils.render_level_label(log.level, (log.channel ~ '.' ~ log.level_name)) }}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
