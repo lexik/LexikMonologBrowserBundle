@@ -1,1 +1,24 @@
-Hello {{ name }}!
+<table class="table table-stripped">
+    <thead>
+        <tr>
+            <th>{{ knp_pagination_sortable(pagination, 'Datetime', 'l.datetime') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Level', 'l.level_name') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Message', 'l.message') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Channel', 'l.channel') }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in pagination %}
+        <tr>
+            <td>{{ log.datetime }}</td>
+            <td>{{ log.level_name }}</td>
+            <td>{{ log.message }}</td>
+            <td>{{ log.channel }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>

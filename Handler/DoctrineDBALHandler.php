@@ -47,7 +47,10 @@ class DoctrineDBALHandler extends AbstractProcessingHandler
         $record = $record['formatted'];
         unset($record['context'], $record['extra']);
 
-        $this->connection->insert($this->tableName, $record);
+        try {
+            $this->connection->insert($this->tableName, $record);
+        } catch (\Exception $e) {
+        }
     }
 
     /**
