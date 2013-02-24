@@ -17,7 +17,8 @@ class DefaultController extends Controller
         );
 
         return $this->render('LexikMonologDoctrineBundle:Default:index.html.twig', array(
-            'pagination' => $pagination,
+            'pagination'  => $pagination,
+            'base_layout' => $this->container->getParameter('lexik_monolog_doctrine.base_layout'),
         ));
     }
 }
