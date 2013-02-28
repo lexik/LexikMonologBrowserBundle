@@ -47,9 +47,10 @@ class LogRepository
     public function getLogsQueryBuilder()
     {
         return $this->createQueryBuilder()
-                    ->select('l.id, l.channel, l.level, l.level_name, l.message, l.datetime')
+                    ->select('l.id, l.channel, l.level, l.level_name, l.message, l.datetime, COUNT(l.id) AS count')
                     ->from($this->tableName, 'l')
-                    ->orderBy('l.id', 'DESC');
+                    ->groupBy('l.message, l.channel, l.level')
+                    ->orderBy('l.datetime', 'DESC');
     }
 
     /**
@@ -72,5 +73,27 @@ class LogRepository
         if (false !== $log) {
             return new Log($log);
         }
+    }
+
+    /**
+     * Retrieve similar logs of the given one.
+     *
+     * @param Log $log
+     *
+     * @return \Doctrine\DBAL\Query\QueryBuilder
+     */
+    public function getSimilarLogsQueryBuilder(Log $log)
+    {
+        return $this->createQueryBuilder()
+                    ->select('l.id, l.channel, l.level, l.level_name, l.message, l.datetime')
+                    ->from($this->tableName, 'l')
+                    ->andWhere('l.message = :message')
+                    ->setParameter(':message', $log->getMessage())
+                    ->andWhere('l.channel = :channel')
+                    ->setParameter(':channel', $log->getChannel())
+                    ->andWhere('l.level = :level')
+                    ->setParameter(':level', $log->getLevel())
+                    ->andWhere('l.id != :id')
+                    ->setParameter(':id', $log->getId());
     }
 }

@@ -38,6 +38,11 @@ class Log
         $this->getData    = isset($data['get'])     ? json_decode($data['get'], true)     : array();
     }
 
+    public function __toString()
+    {
+        return mb_strlen($this->message) > 100 ? sprintf('%s...', mb_substr($this->message, 0, 100)) : $this->message;
+    }
+
     public function getId()
     {
         return $this->id;

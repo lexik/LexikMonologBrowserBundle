@@ -3,42 +3,82 @@
 {% import "LexikMonologDoctrineBundle::utils.html.twig" as utils %}
 
 {% block monolog_doctrine_content %}
-    {{ block('log_head') }}
+    {{ block('log_header') }}
     {{ block('log_content') }}
 {% endblock %}
 
-{% block log_head %}
-    <div class="page-header">
-        <h1>{{ log.message }}</h1>
+{% block log_header %}
+    <a href="{{ path('lexik_monolog_doctrine_index') }}" class="btn btn-small btn-primary">
+        <i class="icon-chevron-left icon-white"></i>
+        back to logs
+    </a>
+
+    <div class="page-header monolog-doctrine-header">
+        <div class="well well-small">
+            <h1>{{ log.message }}</h1>
+        </div>
         {{ utils.render_level_label(log.level, (log.channel ~ '.' ~ log.levelName), { 'class': 'pull-right' }) }}
         <strong>{{ log.date | date }}</strong>
     </div>
 {% endblock %}
 
 {% block log_content %}
-<div class="tabbable tabs-left">
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#extra" data-toggle="tab">Extra</a></li>
-        <li><a href="#context" data-toggle="tab">Context</a></li>
-        <li><a href="#request" data-toggle="tab">Request</a></li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane active" id="extra">
-            {{ _self.render_data_table(log.extra) }}
-        </div>
-        <div class="tab-pane" id="context">
-            {{ _self.render_data_table(log.context) }}
-        </div>
-        <div class="tab-pane" id="request">
-            <h2>SERVER</h2>
-            {{ _self.render_data_table(log.serverData) }}
-            <h2>POST</h2>
-            {{ _self.render_data_table(log.postData) }}
-            <h2>GET</h2>
-            {{ _self.render_data_table(log.getData) }}
+    <div class="tabbable tabs-left">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#extra" data-toggle="tab">Extra</a></li>
+            <li><a href="#context" data-toggle="tab">Context</a></li>
+            <li><a href="#request" data-toggle="tab">Request</a></li>
+            <li><a href="#similar" data-toggle="tab">Similar logs {{ utils.render_count_badge(similar_logs | length) }}</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="extra">
+                {{ _self.render_data_table(log.extra) }}
+            </div>
+            <div class="tab-pane" id="context">
+                {{ _self.render_data_table(log.context) }}
+            </div>
+            <div class="tab-pane" id="request">
+                <h2>SERVER</h2>
+                {{ _self.render_data_table(log.serverData) }}
+                <h2>POST</h2>
+                {{ _self.render_data_table(log.postData) }}
+                <h2>GET</h2>
+                {{ _self.render_data_table(log.getData) }}
+            </div>
+            <div class="tab-pane" id="similar">
+                {% if similar_logs | length %}
+                    <table class="table table-stripped">
+                        <thead>
+                            <tr>
+                                <th>{{ knp_pagination_sortable(similar_logs, 'Datetime', 'l.datetime') }}</th>
+                                <th>{{ knp_pagination_sortable(similar_logs, 'Message', 'l.message') }}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for log in similar_logs %}
+                            <tr>
+                                <td>{{ log.datetime }}</td>
+                                <td>
+                                    <a href="{{ path('lexik_monolog_doctrine_show', { 'id': log.id }) }}">
+                                        {{ log.message }}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{ utils.render_level_label(log.level, (log.channel ~ '.' ~ log.level_name)) }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div class="navigation">
+                        {{ knp_pagination_render(similar_logs) }}
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% macro render_data_table(data) %}

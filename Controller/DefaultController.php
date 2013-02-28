@@ -4,17 +4,24 @@ namespace Lexik\Bundle\LexikMonologDoctrineBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Doctrine\DBAL\DBALException;
+
 class DefaultController extends Controller
 {
     public function indexAction()
     {
-        $query = $this->getLogRepository()->getLogsQueryBuilder();
+        try {
+            $query = $this->getLogRepository()->getLogsQueryBuilder();
 
-        $pagination = $this->get('knp_paginator')->paginate(
-            $query,
-            $this->get('request')->query->get('page', 1),
-            10
-        );
+            $pagination = $this->get('knp_paginator')->paginate(
+                $query,
+                $this->get('request')->query->get('page', 1),
+                10
+            );
+        } catch (DBALException $e) {
+            $this->get('session')->getFlashBag()->add('error', $e->getMessage());
+            $pagination = array();
+        }
 
         return $this->render('LexikMonologDoctrineBundle:Default:index.html.twig', array(
             'pagination'  => $pagination,
@@ -30,9 +37,18 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('The log entry does not exist');
         }
 
+        $similarLogsQuery = $this->getLogRepository()->getSimilarLogsQueryBuilder($log);
+
+        $similarLogs = $this->get('knp_paginator')->paginate(
+            $similarLogsQuery,
+            $this->get('request')->query->get('page', 1),
+            10
+        );
+
         return $this->render('LexikMonologDoctrineBundle:Default:show.html.twig', array(
-            'log'         => $log,
-            'base_layout' => $this->getBaseLayout(),
+            'log'          => $log,
+            'similar_logs' => $similarLogs,
+            'base_layout'  => $this->getBaseLayout(),
         ));
     }
 

@@ -18,3 +18,9 @@
         {{ label }}
     </span>
 {% endmacro %}
+
+{% macro render_count_badge(count) %}
+    <span class="badge{% if count > 1 %} badge-info{% endif %}">
+        {{ count }}
+    </span>
+{% endmacro %}
