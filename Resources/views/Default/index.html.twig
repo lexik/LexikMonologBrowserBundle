@@ -3,6 +3,10 @@
 {% import "LexikMonologDoctrineBundle::utils.html.twig" as utils %}
 
 {% block monolog_doctrine_content %}
+    <form method="get">
+        {{ form_rest(filter) }}
+    </form>
+
     <table class="table table-stripped">
         <thead>
             <tr>

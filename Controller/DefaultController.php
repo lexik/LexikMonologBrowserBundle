@@ -6,12 +6,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Doctrine\DBAL\DBALException;
 
+use Lexik\Bundle\LexikMonologDoctrineBundle\Form\LogSearchType;
+
 class DefaultController extends Controller
 {
     public function indexAction()
     {
         try {
             $query = $this->getLogRepository()->getLogsQueryBuilder();
+
+            $filter = $this->get('form.factory')->create(new LogSearchType(), null, array(
+                'query_builder' => $query,
+                'log_levels'    => $this->getLogRepository()->getLogsLevel(),
+            ));
+
+            $filter->bindRequest($this->get('request'));
 
             $pagination = $this->get('knp_paginator')->paginate(
                 $query,
@@ -24,6 +33,7 @@ class DefaultController extends Controller
         }
 
         return $this->render('LexikMonologDoctrineBundle:Default:index.html.twig', array(
+            'filter'      => $filter->createView(),
             'pagination'  => $pagination,
             'base_layout' => $this->getBaseLayout(),
         ));

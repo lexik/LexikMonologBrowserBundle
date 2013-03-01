@@ -96,4 +96,27 @@ class LogRepository
                     ->andWhere('l.id != :id')
                     ->setParameter(':id', $log->getId());
     }
+
+    /**
+     * Returns a array of levels with count entries used by logs.
+     *
+     * @return array
+     */
+    public function getLogsLevel()
+    {
+        $levels = $this->createQueryBuilder()
+                       ->select('l.level, l.level_name, COUNT(l.id) AS count')
+                       ->from($this->tableName, 'l')
+                       ->groupBy('l.level')
+                       ->orderBy('l.level', 'DESC')
+                       ->execute()
+                       ->fetchAll();
+
+        $normalizedLevels = array();
+        foreach ($levels as $level) {
+            $normalizedLevels[$level['level']] = sprintf('%s (%s)', $level['level_name'], $level['count']);
+        }
+
+        return $normalizedLevels;
+    }
 }
