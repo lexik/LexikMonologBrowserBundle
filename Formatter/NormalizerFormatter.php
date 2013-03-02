@@ -1,6 +1,6 @@
 <?php
 
-namespace Lexik\Bundle\LexikMonologDoctrineBundle\Formatter;
+namespace Lexik\Bundle\MonologDoctrineBundle\Formatter;
 
 use Monolog\Formatter\NormalizerFormatter as BaseFormatter;
 

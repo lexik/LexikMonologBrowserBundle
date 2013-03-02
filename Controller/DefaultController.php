@@ -1,12 +1,12 @@
 <?php
 
-namespace Lexik\Bundle\LexikMonologDoctrineBundle\Controller;
+namespace Lexik\Bundle\MonologDoctrineBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Doctrine\DBAL\DBALException;
 
-use Lexik\Bundle\LexikMonologDoctrineBundle\Form\LogSearchType;
+use Lexik\Bundle\MonologDoctrineBundle\Form\LogSearchType;
 
 class DefaultController extends Controller
 {
@@ -71,7 +71,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @return \Lexik\Bundle\LexikMonologDoctrineBundle\Model\LogRepository
+     * @return \Lexik\Bundle\MonologDoctrineBundle\Model\LogRepository
      */
     protected function getLogRepository()
     {

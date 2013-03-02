@@ -1,6 +1,6 @@
 <?php
 
-namespace Lexik\Bundle\LexikMonologDoctrineBundle\Form;
+namespace Lexik\Bundle\MonologDoctrineBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

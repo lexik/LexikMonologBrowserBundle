@@ -1,10 +1,10 @@
 <?php
 
-namespace Lexik\Bundle\LexikMonologDoctrineBundle\Model;
+namespace Lexik\Bundle\MonologDoctrineBundle\Model;
 
 use Doctrine\DBAL\Driver\Connection;
 
-use Lexik\Bundle\LexikMonologDoctrineBundle\Model\Log;
+use Lexik\Bundle\MonologDoctrineBundle\Model\Log;
 
 /**
  * @author Jeremy Barthe <j.barthe@lexik.fr>

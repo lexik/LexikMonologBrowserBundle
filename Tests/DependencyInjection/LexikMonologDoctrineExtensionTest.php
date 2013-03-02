@@ -1,11 +1,11 @@
 <?php
 
-namespace Lexik\Bundle\LexikMonologDoctrineBundle\Tests\DependencyInjection;
+namespace Lexik\Bundle\MonologDoctrineBundle\Tests\DependencyInjection;
 
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-use Lexik\Bundle\LexikMonologDoctrineBundle\DependencyInjection\LexikMonologDoctrineExtension;
+use Lexik\Bundle\MonologDoctrineBundle\DependencyInjection\LexikMonologDoctrineExtension;
 
 class LexikMonologDoctrineExtensionTest extends \PHPUnit_Framework_TestCase
 {

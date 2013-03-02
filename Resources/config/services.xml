@@ -7,8 +7,8 @@
     <parameters>
         <parameter key="lexik_monolog_doctrine.doctrine_dbal.connection.class">Doctrine\DBAL\Connection</parameter>
         <parameter key="lexik_monolog_doctrine.doctrine_dbal.factory.class">Doctrine\DBAL\DriverManager</parameter>
-        <parameter key="lexik_monolog_doctrine.handler.doctrine_dbal.class">Lexik\Bundle\LexikMonologDoctrineBundle\Handler\DoctrineDBALHandler</parameter>
-        <parameter key="lexik_monolog_doctrine.model.log_repository.class">Lexik\Bundle\LexikMonologDoctrineBundle\Model\LogRepository</parameter>
+        <parameter key="lexik_monolog_doctrine.handler.doctrine_dbal.class">Lexik\Bundle\MonologDoctrineBundle\Handler\DoctrineDBALHandler</parameter>
+        <parameter key="lexik_monolog_doctrine.model.log_repository.class">Lexik\Bundle\MonologDoctrineBundle\Model\LogRepository</parameter>
     </parameters>
 
     <services>

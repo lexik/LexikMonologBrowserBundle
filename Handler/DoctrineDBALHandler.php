@@ -1,6 +1,6 @@
 <?php
 
-namespace Lexik\Bundle\LexikMonologDoctrineBundle\Handler;
+namespace Lexik\Bundle\MonologDoctrineBundle\Handler;
 
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
@@ -8,8 +8,8 @@ use Monolog\Processor\WebProcessor;
 
 use Doctrine\DBAL\Connection;
 
-use Lexik\Bundle\LexikMonologDoctrineBundle\Processor\WebExtendedProcessor;
-use Lexik\Bundle\LexikMonologDoctrineBundle\Formatter\NormalizerFormatter;
+use Lexik\Bundle\MonologDoctrineBundle\Processor\WebExtendedProcessor;
+use Lexik\Bundle\MonologDoctrineBundle\Formatter\NormalizerFormatter;
 
 /**
  * Handler to send messages to a database through Doctrine DBAL.

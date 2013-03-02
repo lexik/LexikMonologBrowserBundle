@@ -1,12 +1,12 @@
 <?php
 
-namespace Lexik\Bundle\LexikMonologDoctrineBundle\Command;
+namespace Lexik\Bundle\MonologDoctrineBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use Lexik\Bundle\LexikMonologDoctrineBundle\Model\SchemaBuilder;
+use Lexik\Bundle\MonologDoctrineBundle\Model\SchemaBuilder;
 
 /**
  * @author Jeremy Barthe <j.barthe@lexik.fr>

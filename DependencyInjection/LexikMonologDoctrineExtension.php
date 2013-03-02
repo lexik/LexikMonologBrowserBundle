@@ -1,6 +1,6 @@
 <?php
 
-namespace Lexik\Bundle\LexikMonologDoctrineBundle\DependencyInjection;
+namespace Lexik\Bundle\MonologDoctrineBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

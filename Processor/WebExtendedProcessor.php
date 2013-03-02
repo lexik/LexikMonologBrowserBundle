@@ -1,6 +1,6 @@
 <?php
 
-namespace Lexik\Bundle\LexikMonologDoctrineBundle\Processor;
+namespace Lexik\Bundle\MonologDoctrineBundle\Processor;
 
 class WebExtendedProcessor
 {

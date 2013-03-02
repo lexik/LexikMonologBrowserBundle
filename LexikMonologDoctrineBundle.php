@@ -1,6 +1,6 @@
 <?php
 
-namespace Lexik\Bundle\LexikMonologDoctrineBundle;
+namespace Lexik\Bundle\MonologDoctrineBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
