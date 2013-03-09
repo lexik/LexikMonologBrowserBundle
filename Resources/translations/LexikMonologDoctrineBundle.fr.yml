@@ -4,7 +4,6 @@ log:
         level:      Niveau
         date_from:  De
         date_to:    A
-        submit:     Recherche
     results:
         datetime:   Date
         message:    Message
