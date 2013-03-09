@@ -1,5 +1,7 @@
 {% extends base_layout %}
 
+{% trans_default_domain 'LexikMonologDoctrineBundle' %}
+
 {% import "LexikMonologDoctrineBundle::utils.html.twig" as utils %}
 
 {% block monolog_doctrine_content %}
@@ -10,7 +12,7 @@
 {% block log_header %}
     <a href="{{ path('lexik_monolog_doctrine_index') }}" class="btn btn-small btn-primary">
         <i class="icon-chevron-left icon-white"></i>
-        back to logs
+        {{ 'log.show.back' | trans }}
     </a>
 
     <div class="page-header monolog-doctrine-header">
@@ -25,10 +27,10 @@
 {% block log_content %}
     <div class="tabbable tabs-left">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#extra" data-toggle="tab">Extra</a></li>
-            <li><a href="#context" data-toggle="tab">Context</a></li>
-            <li><a href="#request" data-toggle="tab">Request</a></li>
-            <li><a href="#similar" data-toggle="tab">Similar logs {{ utils.render_count_badge(similar_logs | length) }}</a></li>
+            <li class="active"><a href="#extra" data-toggle="tab">{{ 'log.show.extra' | trans }}</a></li>
+            <li><a href="#context" data-toggle="tab">{{ 'log.show.context' | trans }}</a></li>
+            <li><a href="#request" data-toggle="tab">{{ 'log.show.request' | trans }}</a></li>
+            <li><a href="#similar" data-toggle="tab">{{ 'log.show.similar' | trans }} {{ utils.render_count_badge(similar_logs | length) }}</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="extra">
@@ -50,8 +52,8 @@
                     <table class="table table-stripped monolog-doctrine-results">
                         <thead>
                             <tr>
-                                <th>{{ knp_pagination_sortable(similar_logs, 'Datetime', 'l.datetime') }}</th>
-                                <th>{{ knp_pagination_sortable(similar_logs, 'Message', 'l.message') }}</th>
+                                <th>{{ knp_pagination_sortable(similar_logs, 'log.results.datetime' | trans, 'l.datetime') }}</th>
+                                <th>{{ knp_pagination_sortable(similar_logs, 'log.results.message' | trans, 'l.message') }}</th>
                                 <th></th>
                             </tr>
                         </thead>

@@ -1,31 +1,39 @@
 {% extends base_layout %}
 
+{% trans_default_domain 'LexikMonologDoctrineBundle' %}
+
 {% import "LexikMonologDoctrineBundle::utils.html.twig" as utils %}
 
 {% block monolog_doctrine_content %}
     <form method="get" class="monolog-doctrine-filters">
         <div class="row">
             <div class="span3 filter-term">
-                {{ form_row(filter.term) }}
+                {{ form_label(filter.term, 'log.search.term' | trans) }}
+                {{ form_widget(filter.term) }}
+                {{ form_errors(filter.term) }}
             </div>
             <div class="span3 filter-level">
-                {{ form_row(filter.level) }}
+                {{ form_label(filter.level, 'log.search.level' | trans) }}
+                {{ form_widget(filter.level) }}
+                {{ form_errors(filter.level) }}
             </div>
             <div class="span5 filter-daterange">
                 <div class="filter-datefrom">
-                    {{ form_label(filter.date_from) }}
+                    {{ form_label(filter.date_from, 'log.search.date_from' | trans) }}
                     {{ form_widget(filter.date_from.date, { 'attr': { 'class': 'datepicker' } }) }}
                     {{ form_widget(filter.date_from.time.hour, { 'attr': { 'class': 'hour' } }) }} : {{ form_widget(filter.date_from.time.minute, { 'attr': { 'class': 'minute' } }) }}
+                    {{ form_errors(filter.date_from) }}
                 </div>
 
                 <div class="filter-dateto">
-                    {{ form_label(filter.date_to) }}
+                    {{ form_label(filter.date_to, 'log.search.date_to' | trans) }}
                     {{ form_widget(filter.date_to.date, { 'attr': { 'class': 'datepicker' } }) }}
                     {{ form_widget(filter.date_to.time.hour, { 'attr': { 'class': 'hour' } }) }} : {{ form_widget(filter.date_to.time.minute, { 'attr': { 'class': 'minute' } }) }}
+                    {{ form_errors(filter.date_to) }}
                 </div>
             </div>
             <div class="span1 filter-submit">
-                <input type="submit" class="btn btn-primary" />
+                <input type="submit" class="btn btn-primary" value="{{ 'log.search.submit' | trans }}" />
             </div>
         </div>
     </form>
@@ -33,9 +41,9 @@
     <table class="table table-stripped monolog-doctrine-results">
         <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'Datetime', 'l.datetime') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'log.results.datetime' | trans, 'l.datetime') }}</th>
                 <th></th>
-                <th>{{ knp_pagination_sortable(pagination, 'Message', 'l.message') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'log.results.message' | trans, 'l.message') }}</th>
                 <th></th>
             </tr>
         </thead>
