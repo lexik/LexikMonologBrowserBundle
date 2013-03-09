@@ -50,10 +50,10 @@ class LogSearchType extends AbstractType
             $data = $event->getData();
 
             if (null !== $data['term']) {
-                $search = '%'.str_replace(' ', '%', $data['term']).'%';
-
                 $qb->andWhere('l.message LIKE :message')
-                   ->setParameter('message', $search);
+                   ->setParameter('message', '%'.str_replace(' ', '%', $data['term']).'%')
+                   ->orWhere('l.channel LIKE :channel')
+                   ->setParameter('channel', $data['term'].'%');
             }
 
             if (null !== $data['level']) {
