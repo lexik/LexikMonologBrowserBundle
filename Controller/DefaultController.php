@@ -20,7 +20,7 @@ class DefaultController extends Controller
                 'log_levels'    => $this->getLogRepository()->getLogsLevel(),
             ));
 
-            $filter->bindRequest($this->get('request'));
+            $filter->bind($this->get('request'));
 
             $pagination = $this->get('knp_paginator')->paginate(
                 $query,
