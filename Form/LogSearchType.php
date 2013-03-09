@@ -25,17 +25,18 @@ class LogSearchType extends AbstractType
             ))
             ->add('level', 'choice', array(
                 'choices'     => $options['log_levels'],
-                'expanded'    => true,
                 'required'    => false,
             ))
             ->add('date_from', 'datetime', array(
-                'date_widget' => 'choice',
-                'time_widget' => 'choice',
+                'date_widget' => 'single_text',
+                'date_format' => 'MM/dd/yyyy',
+                'time_widget' => 'text',
                 'required'    => false,
             ))
             ->add('date_to', 'datetime', array(
-                'date_widget' => 'choice',
-                'time_widget' => 'choice',
+                'date_widget' => 'single_text',
+                'date_format' => 'MM/dd/yyyy',
+                'time_widget' => 'text',
                 'required'    => false,
             ))
         ;
@@ -72,19 +73,6 @@ class LogSearchType extends AbstractType
         });
     }
 
-    /**
-     * Convert a PHP DateTime to database representation.
-     *
-     * @param \DateTime  $date
-     * @param Connection $connection
-     *
-     * @return string
-     */
-    protected function convertDateToDatabaseValue(\DateTime $date, Connection $connection)
-    {
-        return Type::getType('datetime')->convertToDatabaseValue($date, $connection->getDatabasePlatform());
-    }
-
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
@@ -101,13 +89,6 @@ class LogSearchType extends AbstractType
                 'log_levels'    => 'array',
                 'query_builder' => '\Doctrine\DBAL\Query\QueryBuilder',
             ))
-            ->setNormalizers(array(
-                'log_levels' => function (Options $options, array $levels = array()) {
-                    if (count($levels)) {
-                        return array('' => 'All') + $levels;
-                    }
-                },
-            ));
         ;
     }
 

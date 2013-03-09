@@ -47,7 +47,7 @@
             </div>
             <div class="tab-pane" id="similar">
                 {% if similar_logs | length %}
-                    <table class="table table-stripped">
+                    <table class="table table-stripped monolog-doctrine-results">
                         <thead>
                             <tr>
                                 <th>{{ knp_pagination_sortable(similar_logs, 'Datetime', 'l.datetime') }}</th>

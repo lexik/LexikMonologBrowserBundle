@@ -6,3 +6,13 @@
     color: #313131;
     word-break: break-all;
 }
+
+table.monolog-doctrine-results td { word-break: break-all; }
+
+.monolog-doctrine-filters .filter-term input { width: 100%; }
+.monolog-doctrine-filters .filter-level select { width: 100%; }
+.monolog-doctrine-filters .filter-datefrom { float: left; margin-right: 10px; }
+.monolog-doctrine-filters .filter-daterange .datepicker { width: 75px; }
+.monolog-doctrine-filters .filter-daterange .hour,
+.monolog-doctrine-filters .filter-daterange .minute { width: 20px; }
+.monolog-doctrine-filters .filter-submit { padding-top: 25px; }

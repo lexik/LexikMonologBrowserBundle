@@ -3,11 +3,34 @@
 {% import "LexikMonologDoctrineBundle::utils.html.twig" as utils %}
 
 {% block monolog_doctrine_content %}
-    <form method="get">
-        {{ form_rest(filter) }}
+    <form method="get" class="monolog-doctrine-filters">
+        <div class="row">
+            <div class="span3 filter-term">
+                {{ form_row(filter.term) }}
+            </div>
+            <div class="span3 filter-level">
+                {{ form_row(filter.level) }}
+            </div>
+            <div class="span5 filter-daterange">
+                <div class="filter-datefrom">
+                    {{ form_label(filter.date_from) }}
+                    {{ form_widget(filter.date_from.date, { 'attr': { 'class': 'datepicker' } }) }}
+                    {{ form_widget(filter.date_from.time.hour, { 'attr': { 'class': 'hour' } }) }} : {{ form_widget(filter.date_from.time.minute, { 'attr': { 'class': 'minute' } }) }}
+                </div>
+
+                <div class="filter-dateto">
+                    {{ form_label(filter.date_to) }}
+                    {{ form_widget(filter.date_to.date, { 'attr': { 'class': 'datepicker' } }) }}
+                    {{ form_widget(filter.date_to.time.hour, { 'attr': { 'class': 'hour' } }) }} : {{ form_widget(filter.date_to.time.minute, { 'attr': { 'class': 'minute' } }) }}
+                </div>
+            </div>
+            <div class="span1 filter-submit">
+                <input type="submit" class="btn btn-primary" />
+            </div>
+        </div>
     </form>
 
-    <table class="table table-stripped">
+    <table class="table table-stripped monolog-doctrine-results">
         <thead>
             <tr>
                 <th>{{ knp_pagination_sortable(pagination, 'Datetime', 'l.datetime') }}</th>
