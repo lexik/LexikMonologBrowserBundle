@@ -1,21 +1,21 @@
 {% extends base_layout %}
 
-{% trans_default_domain 'LexikMonologDoctrineBundle' %}
+{% trans_default_domain 'LexikMonologBrowserBundle' %}
 
-{% import "LexikMonologDoctrineBundle::utils.html.twig" as utils %}
+{% import "LexikMonologBrowserBundle::utils.html.twig" as utils %}
 
-{% block monolog_doctrine_content %}
+{% block monolog_browser_content %}
     {{ block('log_header') }}
     {{ block('log_content') }}
 {% endblock %}
 
 {% block log_header %}
-    <a href="{{ path('lexik_monolog_doctrine_index') }}" class="btn btn-small btn-primary">
+    <a href="{{ path('lexik_monolog_browser_index') }}" class="btn btn-small btn-primary">
         <i class="icon-chevron-left icon-white"></i>
         {{ 'log.show.back' | trans }}
     </a>
 
-    <div class="page-header monolog-doctrine-header">
+    <div class="page-header monolog-browser-header">
         <div class="well well-small">
             <h1>{{ log.message }}</h1>
         </div>
@@ -49,7 +49,7 @@
             </div>
             <div class="tab-pane" id="similar">
                 {% if similar_logs | length %}
-                    <table class="table table-stripped monolog-doctrine-results">
+                    <table class="table table-stripped monolog-browser-results">
                         <thead>
                             <tr>
                                 <th>{{ knp_pagination_sortable(similar_logs, 'log.results.datetime' | trans, 'l.datetime') }}</th>
@@ -62,7 +62,7 @@
                             <tr>
                                 <td>{{ date(log.datetime) | date('F j H:i:s') }}</td>
                                 <td>
-                                    <a href="{{ path('lexik_monolog_doctrine_show', { 'id': log.id }) }}">
+                                    <a href="{{ path('lexik_monolog_browser_show', { 'id': log.id }) }}">
                                         {{ log.message }}
                                     </a>
                                 </td>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Lexik\Bundle\MonologDoctrineBundle\Model;
+namespace Lexik\Bundle\MonologBrowserBundle\Model;
 
 /**
  * @author Jeremy Barthe <j.barthe@lexik.fr>

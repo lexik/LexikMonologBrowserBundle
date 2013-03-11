@@ -1,6 +1,6 @@
 <?php
 
-namespace Lexik\Bundle\MonologDoctrineBundle\DependencyInjection;
+namespace Lexik\Bundle\MonologBrowserBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,13 +18,13 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('lexik_monolog_doctrine');
+        $rootNode = $treeBuilder->root('lexik_monolog_browser');
 
         $rootNode
             ->children()
                 ->scalarNode('base_layout')
                     ->cannotBeEmpty()
-                    ->defaultValue('LexikMonologDoctrineBundle::layout.html.twig')
+                    ->defaultValue('LexikMonologBrowserBundle::layout.html.twig')
                 ->end()
                 ->arrayNode('doctrine')
                     ->children()

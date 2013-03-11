@@ -1,6 +1,6 @@
 <?php
 
-namespace Lexik\Bundle\MonologDoctrineBundle\Model;
+namespace Lexik\Bundle\MonologBrowserBundle\Model;
 
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Schema\Schema;

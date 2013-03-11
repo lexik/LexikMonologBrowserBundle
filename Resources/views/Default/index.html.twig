@@ -1,12 +1,12 @@
 {% extends base_layout %}
 
-{% trans_default_domain 'LexikMonologDoctrineBundle' %}
+{% trans_default_domain 'LexikMonologBrowserBundle' %}
 
-{% import "LexikMonologDoctrineBundle::utils.html.twig" as utils %}
+{% import "LexikMonologBrowserBundle::utils.html.twig" as utils %}
 
-{% block monolog_doctrine_content %}
+{% block monolog_browser_content %}
     {% if filter %}
-        <form method="get" class="monolog-doctrine-filters">
+        <form method="get" class="monolog-browser-filters">
             <div class="row">
                 <div class="span3 filter-term">
                     {{ form_label(filter.term, 'log.search.term' | trans) }}
@@ -43,7 +43,7 @@
     {% endif %}
 
     {% if pagination %}
-        <table class="table table-stripped monolog-doctrine-results">
+        <table class="table table-stripped monolog-browser-results">
             <thead>
                 <tr>
                     <th>{{ knp_pagination_sortable(pagination, 'log.results.datetime' | trans, 'l.datetime') }}</th>
@@ -58,7 +58,7 @@
                     <td>{{ date(log.datetime) | date('F j H:i:s') }}</td>
                     <td>{{ utils.render_count_badge(log.count) }}</td>
                     <td>
-                        <a href="{{ path('lexik_monolog_doctrine_show', { 'id': log.id }) }}">
+                        <a href="{{ path('lexik_monolog_browser_show', { 'id': log.id }) }}">
                             {{ log.message }}
                         </a>
                     </td>

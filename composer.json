@@ -1,9 +1,9 @@
 {
-    "name": "lexik/monolog-doctrine-bundle",
+    "name": "lexik/monolog-browser-bundle",
     "type": "symfony-bundle",
     "description": "",
     "keywords": ["Symfony2", "bundle", "monolog", "logger", "doctrine"],
-    "homepage": "https://github.com/lexik/LexikMonologDoctrineBundle",
+    "homepage": "https://github.com/lexik/LexikMonologBrowserBundle",
     "license": "MIT",
     "authors": [
         {
@@ -27,7 +27,7 @@
         "doctrine/dbal": "*"
     },
     "autoload": {
-        "psr-0": { "Lexik\\Bundle\\LexikMonologDoctrineBundle": "" }
+        "psr-0": { "Lexik\\Bundle\\MonologBrowserBundle": "" }
     },
-    "target-dir": "Lexik/Bundle/LexikMonologDoctrineBundle"
+    "target-dir": "Lexik/Bundle/MonologBrowserBundle"
 }

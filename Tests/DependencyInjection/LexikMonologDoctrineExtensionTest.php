@@ -1,26 +1,26 @@
 <?php
 
-namespace Lexik\Bundle\MonologDoctrineBundle\Tests\DependencyInjection;
+namespace Lexik\Bundle\MonologBrowserBundle\Tests\DependencyInjection;
 
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-use Lexik\Bundle\MonologDoctrineBundle\DependencyInjection\LexikMonologDoctrineExtension;
+use Lexik\Bundle\MonologBrowserBundle\DependencyInjection\LexikMonologBrowserExtension;
 
-class LexikMonologDoctrineExtensionTest extends \PHPUnit_Framework_TestCase
+class LexikMonologBrowserExtensionTest extends \PHPUnit_Framework_TestCase
 {
     public function testConfigLoad()
     {
-        $extension = new LexikMonologDoctrineExtension();
+        $extension = new LexikMonologBrowserExtension();
         $extension->load(array($this->getConfig()), $container = new ContainerBuilder());
 
         // parameters
-        $this->assertEquals('test_layout.html.twig', $container->getParameter('lexik_monolog_doctrine.base_layout'));
-        $this->assertEquals('logs', $container->getParameter('lexik_monolog_doctrine.doctrine.table_name'));
+        $this->assertEquals('test_layout.html.twig', $container->getParameter('lexik_monolog_browser.base_layout'));
+        $this->assertEquals('logs', $container->getParameter('lexik_monolog_browser.doctrine.table_name'));
 
         // services
-        $this->assertTrue($container->hasDefinition('lexik_monolog_doctrine.doctrine_dbal.connection'));
-        $this->assertTrue($container->hasDefinition('lexik_monolog_doctrine.handler.doctrine_dbal'));
+        $this->assertTrue($container->hasDefinition('lexik_monolog_browser.doctrine_dbal.connection'));
+        $this->assertTrue($container->hasDefinition('lexik_monolog_browser.handler.doctrine_dbal'));
     }
 
     protected function getConfig()

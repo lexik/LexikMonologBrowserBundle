@@ -1,9 +1,9 @@
-LexikMonologDoctrineBundle
+LexikMonologBrowserBundle
 ==========================
 
 This Symfony2 bundle integrates a [Doctrine DBAL](https://github.com/doctrine/dbal) handler for [Monolog](https://github.com/Seldaek/monolog) and a web UI to display log entries. You can list, filter and paginate logs as you can see on the screenshot bellow:
 
-![Log entries listing](https://github.com/lexik/LexikMonologDoctrineBundle/raw/master/Resources/screen/list.jpg)
+![Log entries listing](https://github.com/lexik/LexikMonologBrowserBundle/raw/master/Resources/screen/list.jpg)
 
 As this bundle execute database query on each raise log, it's relevant to small and medium projects, if you have billion of logs consider use a specific log server like [sentry](http://getsentry.com/), [airbrake](https://airbrake.io/), etc.
 
@@ -22,7 +22,7 @@ Installation with composer:
     ...
     "require": {
         ...
-        "lexik/monolog-doctrine-bundle": "dev-master",
+        "lexik/monolog-browser-bundle": "dev-master",
         ...
     },
     ...
@@ -36,7 +36,7 @@ public function registerBundles()
     return array(
         // ...
         new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-        new Lexik\Bundle\MonologDoctrineBundle\LexikMonologDoctrineBundle(),
+        new Lexik\Bundle\MonologBrowserBundle\LexikMonologBrowserBundle(),
         // ...
     );
 }
@@ -62,7 +62,7 @@ doctrine:
                 path:     %kernel.root_dir%/cache/monolog2.db
                 charset:  UTF8
 
-lexik_monolog_doctrine:
+lexik_monolog_browser:
     doctrine:
         connection_name: monolog
 ```
@@ -71,7 +71,7 @@ lexik_monolog_doctrine:
 
 ``` yaml
 # app/config/config.yml
-lexik_monolog_doctrine:
+lexik_monolog_browser:
     doctrine:
         connection:
             driver:      pdo_sqlite
@@ -94,7 +94,7 @@ Optionally you can override schema table name (`monolog_entries` by default):
 
 ``` yaml
 # app/config/config.yml
-lexik_monolog_doctrine:
+lexik_monolog_browser:
     doctrine:
         table_name: monolog_entries
 ```
@@ -102,7 +102,7 @@ lexik_monolog_doctrine:
 Now your database is configured, you can generate schema of your log entry table via following command:
 
 ```
-./app/console lexik:monolog-doctrine:schema-create
+./app/console lexik:monolog-browser:schema-create
 # you should see as result:
 # Created table monolog_entries for Doctrine Monolog connection
 ```
@@ -116,28 +116,28 @@ monolog:
         main:
             type:         fingers_crossed # or buffer
             level:        error
-            handler:      lexik_monolog_doctrine
+            handler:      lexik_monolog_browser
         app:
             type:         buffer
             action_level: info
             channels:     app
-            handler:      lexik_monolog_doctrine
+            handler:      lexik_monolog_browser
         deprecation:
             type:         buffer
             action_level: warning
             channels:     deprecation
-            handler:      lexik_monolog_doctrine
-        lexik_monolog_doctrine:
+            handler:      lexik_monolog_browser
+        lexik_monolog_browser:
             type:         service
-            id:           lexik_monolog_doctrine.handler.doctrine_dbal
+            id:           lexik_monolog_browser.handler.doctrine_dbal
 ```
 
 Now you have enabled and configured the handler, you should want to display log entries so just import the routing files:
 
 ``` yaml
 # app/config/routing.yml
-lexik_monolog_doctrine:
-    resource: "@LexikMonologDoctrineBundle/Resources/config/routing.xml"
+lexik_monolog_browser:
+    resource: "@LexikMonologBrowserBundle/Resources/config/routing.xml"
     prefix:   /admin/monolog
 ```
 
@@ -159,15 +159,15 @@ You can override default layout of the bundle through configure `base_layout`:
 
 ``` yaml
 # app/config/config.yml
-lexik_monolog_doctrine:
-    base_layout: "::LexikMonologDoctrineBundle.html.twig"
+lexik_monolog_browser:
+    base_layout: "::LexikMonologBrowserBundle.html.twig"
 ```
 
-or quite simply with the Symfony way by create a template on `app/Resources/LexikMonologDoctrineBundle/views/layout.html.twig`.
+or quite simply with the Symfony way by create a template on `app/Resources/LexikMonologBrowserBundle/views/layout.html.twig`.
 
 ToDo
 ----
 
-* can use another Doctrine connection through `connection_name` option
 * configure Processors to push into the Handler
+* abstract handler and connector for Doctrine and browse another like Elasticsearh
 * write Tests

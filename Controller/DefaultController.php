@@ -1,12 +1,12 @@
 <?php
 
-namespace Lexik\Bundle\MonologDoctrineBundle\Controller;
+namespace Lexik\Bundle\MonologBrowserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Doctrine\DBAL\DBALException;
 
-use Lexik\Bundle\MonologDoctrineBundle\Form\LogSearchType;
+use Lexik\Bundle\MonologBrowserBundle\Form\LogSearchType;
 
 class DefaultController extends Controller
 {
@@ -32,7 +32,7 @@ class DefaultController extends Controller
             $pagination = array();
         }
 
-        return $this->render('LexikMonologDoctrineBundle:Default:index.html.twig', array(
+        return $this->render('LexikMonologBrowserBundle:Default:index.html.twig', array(
             'filter'      => isset($filter) ? $filter->createView() : null,
             'pagination'  => $pagination,
             'base_layout' => $this->getBaseLayout(),
@@ -55,7 +55,7 @@ class DefaultController extends Controller
             10
         );
 
-        return $this->render('LexikMonologDoctrineBundle:Default:show.html.twig', array(
+        return $this->render('LexikMonologBrowserBundle:Default:show.html.twig', array(
             'log'          => $log,
             'similar_logs' => $similarLogs,
             'base_layout'  => $this->getBaseLayout(),
@@ -67,14 +67,14 @@ class DefaultController extends Controller
      */
     public function getBaseLayout()
     {
-        return $this->container->getParameter('lexik_monolog_doctrine.base_layout');
+        return $this->container->getParameter('lexik_monolog_browser.base_layout');
     }
 
     /**
-     * @return \Lexik\Bundle\MonologDoctrineBundle\Model\LogRepository
+     * @return \Lexik\Bundle\MonologBrowserBundle\Model\LogRepository
      */
     protected function getLogRepository()
     {
-        return $this->get('lexik_monolog_doctrine.model.log_repository');
+        return $this->get('lexik_monolog_browser.model.log_repository');
     }
 }

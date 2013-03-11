@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.0/css/bootstrap.css" rel="stylesheet">
-        <link href="{{ asset('bundles/lexikmonologdoctrine/css/datepicker.css') }}" rel="stylesheet">
-        <link href="{{ asset('bundles/lexikmonologdoctrine/css/log.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/lexikmonologbrowser/css/datepicker.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/lexikmonologbrowser/css/log.css') }}" rel="stylesheet">
     </head>
     <body>
         <div class="container">
@@ -16,13 +16,13 @@
                 {% endfor %}
             {% endfor %}
 
-            {% block monolog_doctrine_content %}
+            {% block monolog_browser_content %}
             {% endblock %}
         </div>
 
         <script src="//code.jquery.com/jquery.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
-        <script src="{{ asset('bundles/lexikmonologdoctrine/js/bootstrap-datepicker.js') }}"></script>
-        <script src="{{ asset('bundles/lexikmonologdoctrine/js/log.js') }}"></script>
+        <script src="{{ asset('bundles/lexikmonologbrowser/js/bootstrap-datepicker.js') }}"></script>
+        <script src="{{ asset('bundles/lexikmonologbrowser/js/log.js') }}"></script>
     </body>
 </html>

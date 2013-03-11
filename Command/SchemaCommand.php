@@ -1,12 +1,12 @@
 <?php
 
-namespace Lexik\Bundle\MonologDoctrineBundle\Command;
+namespace Lexik\Bundle\MonologBrowserBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use Lexik\Bundle\MonologDoctrineBundle\Model\SchemaBuilder;
+use Lexik\Bundle\MonologBrowserBundle\Model\SchemaBuilder;
 
 /**
  * @author Jeremy Barthe <j.barthe@lexik.fr>
@@ -19,7 +19,7 @@ class SchemaCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('lexik:monolog-doctrine:schema-create')
+            ->setName('lexik:monolog-browser:schema-create')
             ->setDescription('Create schema to log Monolog entries')
         ;
     }
@@ -33,10 +33,10 @@ class SchemaCommand extends ContainerAwareCommand
             $output->writeln($message);
         };
 
-        $tableName = $this->getContainer()->getParameter('lexik_monolog_doctrine.doctrine.table_name');
+        $tableName = $this->getContainer()->getParameter('lexik_monolog_browser.doctrine.table_name');
 
         $schemaBuilder = new SchemaBuilder(
-            $this->getContainer()->get('lexik_monolog_doctrine.doctrine_dbal.connection'),
+            $this->getContainer()->get('lexik_monolog_browser.doctrine_dbal.connection'),
             $tableName
         );
 
