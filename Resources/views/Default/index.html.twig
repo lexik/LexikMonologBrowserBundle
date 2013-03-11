@@ -5,69 +5,73 @@
 {% import "LexikMonologDoctrineBundle::utils.html.twig" as utils %}
 
 {% block monolog_doctrine_content %}
-    <form method="get" class="monolog-doctrine-filters">
-        <div class="row">
-            <div class="span3 filter-term">
-                {{ form_label(filter.term, 'log.search.term' | trans) }}
-                {{ form_widget(filter.term) }}
-                {{ form_errors(filter.term) }}
-            </div>
-            <div class="span3 filter-level">
-                {{ form_label(filter.level, 'log.search.level' | trans) }}
-                {{ form_widget(filter.level) }}
-                {{ form_errors(filter.level) }}
-            </div>
-            <div class="span5 filter-daterange">
-                <div class="filter-datefrom">
-                    {{ form_label(filter.date_from, 'log.search.date_from' | trans) }}
-                    {{ form_widget(filter.date_from.date, { 'attr': { 'class': 'datepicker' } }) }}
-                    {{ form_widget(filter.date_from.time.hour, { 'attr': { 'class': 'hour' } }) }} : {{ form_widget(filter.date_from.time.minute, { 'attr': { 'class': 'minute' } }) }}
-                    {{ form_errors(filter.date_from) }}
+    {% if filter %}
+        <form method="get" class="monolog-doctrine-filters">
+            <div class="row">
+                <div class="span3 filter-term">
+                    {{ form_label(filter.term, 'log.search.term' | trans) }}
+                    {{ form_widget(filter.term) }}
+                    {{ form_errors(filter.term) }}
                 </div>
+                <div class="span3 filter-level">
+                    {{ form_label(filter.level, 'log.search.level' | trans) }}
+                    {{ form_widget(filter.level) }}
+                    {{ form_errors(filter.level) }}
+                </div>
+                <div class="span5 filter-daterange">
+                    <div class="filter-datefrom">
+                        {{ form_label(filter.date_from, 'log.search.date_from' | trans) }}
+                        {{ form_widget(filter.date_from.date, { 'attr': { 'class': 'datepicker' } }) }}
+                        {{ form_widget(filter.date_from.time.hour, { 'attr': { 'class': 'hour' } }) }} : {{ form_widget(filter.date_from.time.minute, { 'attr': { 'class': 'minute' } }) }}
+                        {{ form_errors(filter.date_from) }}
+                    </div>
 
-                <div class="filter-dateto">
-                    {{ form_label(filter.date_to, 'log.search.date_to' | trans) }}
-                    {{ form_widget(filter.date_to.date, { 'attr': { 'class': 'datepicker' } }) }}
-                    {{ form_widget(filter.date_to.time.hour, { 'attr': { 'class': 'hour' } }) }} : {{ form_widget(filter.date_to.time.minute, { 'attr': { 'class': 'minute' } }) }}
-                    {{ form_errors(filter.date_to) }}
+                    <div class="filter-dateto">
+                        {{ form_label(filter.date_to, 'log.search.date_to' | trans) }}
+                        {{ form_widget(filter.date_to.date, { 'attr': { 'class': 'datepicker' } }) }}
+                        {{ form_widget(filter.date_to.time.hour, { 'attr': { 'class': 'hour' } }) }} : {{ form_widget(filter.date_to.time.minute, { 'attr': { 'class': 'minute' } }) }}
+                        {{ form_errors(filter.date_to) }}
+                    </div>
+                </div>
+                <div class="span1 filter-submit">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="icon-search icon-white"></i>
+                    </button>
                 </div>
             </div>
-            <div class="span1 filter-submit">
-                <button type="submit" class="btn btn-primary">
-                    <i class="icon-search icon-white"></i>
-                </button>
-            </div>
+        </form>
+    {% endif %}
+
+    {% if pagination %}
+        <table class="table table-stripped monolog-doctrine-results">
+            <thead>
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'log.results.datetime' | trans, 'l.datetime') }}</th>
+                    <th></th>
+                    <th>{{ knp_pagination_sortable(pagination, 'log.results.message' | trans, 'l.message') }}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in pagination %}
+                <tr>
+                    <td>{{ date(log.datetime) | date('F j H:i:s') }}</td>
+                    <td>{{ utils.render_count_badge(log.count) }}</td>
+                    <td>
+                        <a href="{{ path('lexik_monolog_doctrine_show', { 'id': log.id }) }}">
+                            {{ log.message }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ utils.render_level_label(log.level, (log.channel ~ '.' ~ log.level_name)) }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
         </div>
-    </form>
-
-    <table class="table table-stripped monolog-doctrine-results">
-        <thead>
-            <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'log.results.datetime' | trans, 'l.datetime') }}</th>
-                <th></th>
-                <th>{{ knp_pagination_sortable(pagination, 'log.results.message' | trans, 'l.message') }}</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for log in pagination %}
-            <tr>
-                <td>{{ date(log.datetime) | date('F j H:i:s') }}</td>
-                <td>{{ utils.render_count_badge(log.count) }}</td>
-                <td>
-                    <a href="{{ path('lexik_monolog_doctrine_show', { 'id': log.id }) }}">
-                        {{ log.message }}
-                    </a>
-                </td>
-                <td>
-                    {{ utils.render_level_label(log.level, (log.channel ~ '.' ~ log.level_name)) }}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <div class="navigation">
-        {{ knp_pagination_render(pagination) }}
-    </div>
+    {% endif %}
 {% endblock %}

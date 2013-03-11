@@ -33,7 +33,7 @@ class DefaultController extends Controller
         }
 
         return $this->render('LexikMonologDoctrineBundle:Default:index.html.twig', array(
-            'filter'      => $filter->createView(),
+            'filter'      => isset($filter) ? $filter->createView() : null,
             'pagination'  => $pagination,
             'base_layout' => $this->getBaseLayout(),
         ));
