@@ -20,7 +20,7 @@ class SchemaCommand extends ContainerAwareCommand
     {
         $this
             ->setName('lexik:monolog-doctrine:schema-create')
-            ->setDescription('Create schema to log monolog entries')
+            ->setDescription('Create schema to log Monolog entries')
         ;
     }
 
@@ -33,10 +33,23 @@ class SchemaCommand extends ContainerAwareCommand
             $output->writeln($message);
         };
 
+        $tableName = $this->getContainer()->getParameter('lexik_monolog_doctrine.doctrine.table_name');
+
         $schemaBuilder = new SchemaBuilder(
             $this->getContainer()->get('lexik_monolog_doctrine.doctrine_dbal.connection'),
-            $this->getContainer()->getParameter('lexik_monolog_doctrine.doctrine.table_name')
+            $tableName
         );
-        $schemaBuilder->create($loggerClosure);
+
+        $error = false;
+        try {
+            $schemaBuilder->create($loggerClosure);
+            $output->writeln(sprintf('<info>Created table <comment>%s</comment> for Doctrine Monolog connection</info>', $tableName));
+        } catch (\Exception $e) {
+            $output->writeln(sprintf('<error>Could not create table <comment>%s</comment> for Doctrine Monolog connection</error>', $tableName));
+            $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+            $error = true;
+        }
+
+        return $error ? 1 : 0;
     }
 }
