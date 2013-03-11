@@ -1,6 +1,6 @@
 log:
     search:
-        term:       Message
+        term:       Search (message or channel)
         level:      Level
         date_from:  From
         date_to:    To
