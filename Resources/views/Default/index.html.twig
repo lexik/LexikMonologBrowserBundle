@@ -52,7 +52,7 @@
         <tbody>
             {% for log in pagination %}
             <tr>
-                <td>{{ log.datetime }}</td>
+                <td>{{ date(log.datetime) | date('F j H:i:s') }}</td>
                 <td>{{ utils.render_count_badge(log.count) }}</td>
                 <td>
                     <a href="{{ path('lexik_monolog_doctrine_show', { 'id': log.id }) }}">

@@ -60,7 +60,7 @@
                         <tbody>
                             {% for log in similar_logs %}
                             <tr>
-                                <td>{{ log.datetime }}</td>
+                                <td>{{ date(log.datetime) | date('F j H:i:s') }}</td>
                                 <td>
                                     <a href="{{ path('lexik_monolog_doctrine_show', { 'id': log.id }) }}">
                                         {{ log.message }}

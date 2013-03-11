@@ -7,7 +7,11 @@
     word-break: break-all;
 }
 
-table.monolog-doctrine-results td { word-break: break-all; }
+table.monolog-doctrine-results td {
+    word-break: break-all;
+    padding: 8px 5px;
+}
+table.monolog-doctrine-results td:first-child { white-space: nowrap; }
 
 .monolog-doctrine-filters .filter-term input { width: 100%; }
 .monolog-doctrine-filters .filter-level select { width: 100%; }
