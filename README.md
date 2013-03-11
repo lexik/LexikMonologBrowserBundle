@@ -5,6 +5,8 @@ This Symfony2 bundle integrates a [Doctrine DBAL](https://github.com/doctrine/db
 
 ![Log entries listing](https://github.com/lexik/LexikMonologDoctrineBundle/raw/master/Resources/screen/list.jpg)
 
+As this bundle execute database query on each raise log, it's relevant to small and medium projects, if you have billion of logs consider use a specific log server like [sentry](http://getsentry.com/), [airbrake](https://airbrake.io/), etc.
+
 Requirements:
 ------------
 
@@ -140,3 +142,9 @@ lexik_monolog_doctrine:
 ```
 
 or quite simply with the Symfony way by create a template on `app/Resources/LexikMonologDoctrineBundle/views/layout.html.twig`.
+
+ToDo
+----
+
+* configure Processors to push into the Handler
+* write Tests
