@@ -45,7 +45,29 @@ public function registerBundles()
 Configuration
 -------------
 
-First of all, you need to configure the Doctrine DBAL connection to use in the handler:
+First of all, you need to configure the Doctrine DBAL connection to use in the handler. You have 2 ways to do that:
+
+**By using an existing Doctrine connection:**
+
+``` yaml
+# app/config/config.yml
+doctrine:
+    dbal:
+        connections:
+            default:
+                ...
+            monolog:
+                driver:   pdo_sqlite
+                dbname:   monolog
+                path:     %kernel.root_dir%/cache/monolog2.db
+                charset:  UTF8
+
+lexik_monolog_doctrine:
+    doctrine:
+        connection_name: monolog
+```
+
+**By creating a custom Doctrine connection for the bundle:**
 
 ``` yaml
 # app/config/config.yml

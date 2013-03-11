@@ -29,6 +29,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('doctrine')
                     ->children()
                         ->scalarNode('table_name')->defaultValue('monolog_entries')->end()
+                        ->scalarNode('connection_name')->end()
                         ->arrayNode('connection')
                             ->cannotBeEmpty()
                             ->children()

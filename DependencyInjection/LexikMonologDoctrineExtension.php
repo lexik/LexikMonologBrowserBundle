@@ -3,6 +3,7 @@
 namespace Lexik\Bundle\MonologDoctrineBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
@@ -27,7 +28,21 @@ class LexikMonologDoctrineExtension extends Extension
 
         $container->setParameter('lexik_monolog_doctrine.base_layout', $config['base_layout']);
 
+        if (!is_array($config['doctrine'])) {
+            return;
+        }
+
         $container->setParameter('lexik_monolog_doctrine.doctrine.table_name', $config['doctrine']['table_name']);
-        $container->setParameter('lexik_monolog_doctrine.doctrine.connection.configuration', $config['doctrine']['connection']);
+
+        if (isset($config['doctrine']['connection_name'])) {
+            $container->setAlias('lexik_monolog_doctrine.doctrine_dbal.connection', sprintf('doctrine.dbal.%s_connection', $config['doctrine']['connection_name']));
+        }
+
+        if (isset($config['doctrine']['connection'])) {
+            $connectionDefinition = new Definition('Doctrine\DBAL\Connection', array($config['doctrine']['connection']));
+            $connectionDefinition->setFactoryClass('Doctrine\DBAL\DriverManager');
+            $connectionDefinition->setFactoryMethod('getConnection');
+            $container->setDefinition('lexik_monolog_doctrine.doctrine_dbal.connection', $connectionDefinition);
+        }
     }
 }

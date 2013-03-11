@@ -17,7 +17,6 @@ class LexikMonologDoctrineExtensionTest extends \PHPUnit_Framework_TestCase
         // parameters
         $this->assertEquals('test_layout.html.twig', $container->getParameter('lexik_monolog_doctrine.base_layout'));
         $this->assertEquals('logs', $container->getParameter('lexik_monolog_doctrine.doctrine.table_name'));
-        $this->assertInternalType('array', $container->getParameter('lexik_monolog_doctrine.doctrine.connection.configuration'));
 
         // services
         $this->assertTrue($container->hasDefinition('lexik_monolog_doctrine.doctrine_dbal.connection'));
