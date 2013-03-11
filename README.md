@@ -146,5 +146,6 @@ or quite simply with the Symfony way by create a template on `app/Resources/Lexi
 ToDo
 ----
 
+* can use another Doctrine connection through `connection_name` option
 * configure Processors to push into the Handler
 * write Tests
