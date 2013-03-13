@@ -25,7 +25,7 @@ class DefaultController extends Controller
             $pagination = $this->get('knp_paginator')->paginate(
                 $query,
                 $this->get('request')->query->get('page', 1),
-                10
+                $this->container->getParameter('lexik_monolog_browser.logs_per_page')
             );
         } catch (DBALException $e) {
             $this->get('session')->getFlashBag()->add('error', $e->getMessage());
