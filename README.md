@@ -1,11 +1,12 @@
 LexikMonologBrowserBundle
 ==========================
 
-This Symfony2 bundle integrates a [Doctrine DBAL](https://github.com/doctrine/dbal) handler for [Monolog](https://github.com/Seldaek/monolog) and a web UI to display log entries. You can list, filter and paginate logs as you can see on the screenshot bellow:
+This Symfony2 bundle provides a [Doctrine DBAL](https://github.com/doctrine/dbal) handler for [Monolog](https://github.com/Seldaek/monolog) and a web UI to display log entries. You can list, filter and paginate logs as you can see on the screenshot bellow:
 
 ![Log entries listing](https://github.com/lexik/LexikMonologBrowserBundle/raw/master/Resources/screen/list.jpg)
+![Log entry show](https://github.com/lexik/LexikMonologBrowserBundle/raw/master/Resources/screen/show.jpg)
 
-As this bundle execute database query on each raise log, it's relevant to small and medium projects, if you have billion of logs consider use a specific log server like [sentry](http://getsentry.com/), [airbrake](https://airbrake.io/), etc.
+As this bundle query your database on each raised log, it's relevant for small and medium projects, but if you have billion of logs consider using a specific log server like [sentry](http://getsentry.com/), [airbrake](https://airbrake.io/), etc.
 
 Requirements:
 ------------
@@ -28,7 +29,7 @@ Installation with composer:
     ...
 ```
 
-Next, be sure to enable this bundles in your `app/AppKernel.php` file:
+Next, be sure to enable these bundles in your `app/AppKernel.php` file:
 
 ``` php
 public function registerBundles()
@@ -90,7 +91,7 @@ lexik_monolog_browser:
 
 Please refer to the [Doctrine DBAL connection configuration](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#configuration) for more details.
 
-Optionally you can override schema table name (`monolog_entries` by default):
+Optionally you can override the schema table name (`monolog_entries` by default):
 
 ``` yaml
 # app/config/config.yml
@@ -99,7 +100,7 @@ lexik_monolog_browser:
         table_name: monolog_entries
 ```
 
-Now your database is configured, you can generate schema of your log entry table via following command:
+Now your database is configured, you can generate the schema for your log entry table by running the following command:
 
 ```
 ./app/console lexik:monolog-browser:schema-create
@@ -107,7 +108,7 @@ Now your database is configured, you can generate schema of your log entry table
 # Created table monolog_entries for Doctrine Monolog connection
 ```
 
-Next, you can configure Monolog to use the Doctrine DBAL handler:
+Then, you can configure Monolog to use the Doctrine DBAL handler:
 
 ``` yaml
 # app/config/config_prod.yml # or any env
@@ -132,7 +133,7 @@ monolog:
             id:           lexik_monolog_browser.handler.doctrine_dbal
 ```
 
-Now you have enabled and configured the handler, you should want to display log entries so just import the routing files:
+Now you have enabled and configured the handler, you migth want to display log entries, just import the routing file:
 
 ``` yaml
 # app/config/routing.yml
@@ -144,7 +145,7 @@ lexik_monolog_browser:
 Translations
 ------------
 
-If you wish to use default texts provided in this bundle, you have to make sure you have translator enabled in your config:
+If you wish to use default translations provided in this bundle, make sure you have enabled the translator in your config:
 
 ``` yaml
 # app/config/config.yml
@@ -155,12 +156,12 @@ framework:
 Overriding default layout
 -------------------------
 
-You can override default layout of the bundle through configure `base_layout`:
+You can override the default layout of the bundle by using the `base_layout` option:
 
 ``` yaml
 # app/config/config.yml
 lexik_monolog_browser:
-    base_layout: "::LexikMonologBrowserBundle.html.twig"
+    base_layout: "LexikMonologBrowserBundle::layout.html.twig"
 ```
 
 or quite simply with the Symfony way by create a template on `app/Resources/LexikMonologBrowserBundle/views/layout.html.twig`.
