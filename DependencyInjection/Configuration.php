@@ -58,6 +58,26 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
             ->end()
+            ->validate()
+                ->ifTrue(function($v) {
+                    if (!isset($v['doctrine'])) {
+                        return true;
+                    }
+
+                    return !isset($v['doctrine']['connection_name']) && !isset($v['doctrine']['connection']);
+                })
+                ->thenInvalid('You must provide a valid "connection_name" or "connection" definition.')
+            ->end()
+            ->validate()
+                ->ifTrue(function($v) {
+                    if (!isset($v['doctrine'])) {
+                        return true;
+                    }
+
+                    return isset($v['doctrine']['connection_name']) && isset($v['doctrine']['connection']);
+                })
+                ->thenInvalid('You cannot specify both options "connection_name" and "connection".')
+            ->end()
         ;
 
         return $treeBuilder;
