@@ -19,7 +19,7 @@
     "require": {
         "php": ">=5.3.2",
         "symfony/framework-bundle": ">=2.1,<2.3-dev",
-        "knplabs/knp-paginator-bundle": ">=2.3,dev-master"
+        "knplabs/knp-paginator-bundle": ">=2.3"
     },
     "require-dev": {
         "monolog/monolog": "*",
