@@ -64,6 +64,7 @@ doctrine:
                 dbname:   monolog
                 path:     %kernel.root_dir%/cache/monolog2.db
                 charset:  UTF8
+                logging:  false
 
 lexik_monolog_browser:
     doctrine:
