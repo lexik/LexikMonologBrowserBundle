@@ -36,47 +36,15 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->arrayNode('doctrine')
                     ->children()
-                        ->scalarNode('table_name')->defaultValue('monolog_entries')->end()
-                        ->scalarNode('connection_name')->end()
-                        ->arrayNode('connection')
+                        ->scalarNode('table_name')
+                            ->defaultValue('monolog_entries')
+                        ->end()
+                        ->scalarNode('connection_name')
+                            ->isRequired()
                             ->cannotBeEmpty()
-                            ->children()
-                                ->scalarNode('driver')->end()
-                                ->scalarNode('driverClass')->end()
-                                ->scalarNode('pdo')->end()
-                                ->scalarNode('dbname')->end()
-                                ->scalarNode('host')->defaultValue('localhost')->end()
-                                ->scalarNode('port')->defaultNull()->end()
-                                ->scalarNode('user')->defaultValue('root')->end()
-                                ->scalarNode('password')->defaultNull()->end()
-                                ->scalarNode('charset')->defaultValue('UTF8')->end()
-                                ->scalarNode('path')->info(' The filesystem path to the database file for SQLite')->end()
-                                ->booleanNode('memory')->info('True if the SQLite database should be in-memory (non-persistent)')->end()
-                                ->scalarNode('unix_socket')->info('The unix socket to use for MySQL')->end()
-                            ->end()
                         ->end()
                     ->end()
                 ->end()
-            ->end()
-            ->validate()
-                ->ifTrue(function($v) {
-                    if (!isset($v['doctrine'])) {
-                        return true;
-                    }
-
-                    return !isset($v['doctrine']['connection_name']) && !isset($v['doctrine']['connection']);
-                })
-                ->thenInvalid('You must provide a valid "connection_name" or "connection" definition.')
-            ->end()
-            ->validate()
-                ->ifTrue(function($v) {
-                    if (!isset($v['doctrine'])) {
-                        return true;
-                    }
-
-                    return isset($v['doctrine']['connection_name']) && isset($v['doctrine']['connection']);
-                })
-                ->thenInvalid('You cannot specify both options "connection_name" and "connection".')
             ->end()
         ;
 

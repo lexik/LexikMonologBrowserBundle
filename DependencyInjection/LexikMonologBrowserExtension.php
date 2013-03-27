@@ -31,15 +31,7 @@ class LexikMonologBrowserExtension extends Extension
 
         $container->setParameter('lexik_monolog_browser.doctrine.table_name', $config['doctrine']['table_name']);
 
-        if (isset($config['doctrine']['connection_name'])) {
-            $container->setAlias('lexik_monolog_browser.doctrine_dbal.connection', sprintf('doctrine.dbal.%s_connection', $config['doctrine']['connection_name']));
-        }
-
-        if (isset($config['doctrine']['connection'])) {
-            $connectionDefinition = new Definition('Doctrine\DBAL\Connection', array($config['doctrine']['connection']));
-            $connectionDefinition->setFactoryClass('Doctrine\DBAL\DriverManager');
-            $connectionDefinition->setFactoryMethod('getConnection');
-            $container->setDefinition('lexik_monolog_browser.doctrine_dbal.connection', $connectionDefinition);
-        }
+        $doctrineConnectionName = sprintf('doctrine.dbal.%s_connection', $config['doctrine']['connection_name']);
+        $container->setAlias('lexik_monolog_browser.doctrine_dbal.connection', $doctrineConnectionName);
     }
 }
