@@ -8,7 +8,7 @@ This Symfony2 bundle provides a [Doctrine DBAL](https://github.com/doctrine/dbal
 ![Log entries listing](https://github.com/lexik/LexikMonologBrowserBundle/raw/master/Resources/screen/list.jpg)
 ![Log entry show](https://github.com/lexik/LexikMonologBrowserBundle/raw/master/Resources/screen/show.jpg)
 
-As this bundle query your database on each raised log, it's relevant for small and medium projects, but if you have billion of logs consider using a specific log server like [sentry](http://getsentry.com/), [airbrake](https://airbrake.io/), etc.
+As this bundle query your database on each raised log, it's relevant for small and medium projects, but if you have billion of logs consider using a specific log server like [sentry](http://getsentry.com/), [logstash](http://logstash.net/), [airbrake](https://airbrake.io/), etc.
 
 Requirements:
 ------------
@@ -48,9 +48,9 @@ public function registerBundles()
 Configuration
 -------------
 
-First of all, you need to configure the Doctrine DBAL connection to use in the handler. You have 2 ways to do that:
+First of all, you need to specify the Doctrine DBAL connection to use in the handler through `connection_name` configuration. Don't forget to have a look on the [Doctrine reference configuration](http://symfony.com/doc/current/reference/configuration/doctrine.html), especially if you have only one connection and how to define several.
 
-**By using an existing Doctrine connection:**
+Also the `logging` configuration of the connection should be disabled to prevent infinite loop when logging database queries (as a query will be logged, which triggers another query being logged and so on).
 
 ``` yaml
 # app/config/config.yml
@@ -71,28 +71,9 @@ lexik_monolog_browser:
         connection_name: monolog
 ```
 
-**By creating a custom Doctrine connection for the bundle:**
+**Warning:**
 
-``` yaml
-# app/config/config.yml
-lexik_monolog_browser:
-    doctrine:
-        connection:
-            driver:      pdo_sqlite
-            driverClass: ~
-            pdo:         ~
-            dbname:      monolog
-            host:        localhost
-            port:        ~
-            user:        root
-            password:    ~
-            charset:     UTF8
-            path:        %kernel.root_dir%/db/monolog.db # The filesystem path to the database file for SQLite
-            memory:      ~                               # True if the SQLite database should be in-memory (non-persistent)
-            unix_socket: ~                               # The unix socket to use for MySQL
-```
-
-Please refer to the [Doctrine DBAL connection configuration](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#configuration) for more details.
+> If you have installed the first release of this bundle, the Doctrine custom connection has been removed in favor to a connection initialized by DoctrineBundle.
 
 Optionally you can override the schema table name (`monolog_entries` by default):
 
