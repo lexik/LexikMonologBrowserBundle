@@ -19,7 +19,7 @@ class LexikMonologBrowserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('logs', $container->getParameter('lexik_monolog_browser.doctrine.table_name'));
 
         // services
-        $this->assertTrue($container->hasDefinition('lexik_monolog_browser.doctrine_dbal.connection'));
+        $this->assertTrue($container->hasAlias('lexik_monolog_browser.doctrine_dbal.connection'));
         $this->assertTrue($container->hasDefinition('lexik_monolog_browser.handler.doctrine_dbal'));
     }
 
@@ -29,11 +29,7 @@ class LexikMonologBrowserExtensionTest extends \PHPUnit_Framework_TestCase
             'base_layout' => 'test_layout.html.twig',
             'doctrine'    => array(
                 'table_name' => 'logs',
-                'connection' => array(
-                    'driver' => 'pdo_sqlite',
-                    'dbname' => 'monolog',
-                    'memory' => true,
-                ),
+                'connection_name' => 'monolog',
             ),
         );
     }
