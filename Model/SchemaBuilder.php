@@ -4,6 +4,7 @@ namespace Lexik\Bundle\MonologBrowserBundle\Model;
 
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Schema\SchemaDiff;
 use Doctrine\DBAL\Schema\Comparator;
 
 /**
@@ -16,6 +17,8 @@ class SchemaBuilder
      */
     protected $conn;
 
+    protected $tableName;
+
     /**
      * @var Schema $schema
      */
@@ -23,11 +26,12 @@ class SchemaBuilder
 
     public function __construct(Connection $conn, $tableName)
     {
-        $this->conn = $conn;
+        $this->conn      = $conn;
+        $this->tableName = $tableName;
 
         $this->schema = new Schema();
 
-        $entryTable = $this->schema->createTable($tableName);
+        $entryTable = $this->schema->createTable($this->tableName);
         $entryTable->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement' => true));
         $entryTable->addColumn('channel', 'string', array('length' => 255, 'notNull' => true));
         $entryTable->addColumn('level', 'integer', array('notNull' => true));
@@ -58,12 +62,19 @@ class SchemaBuilder
 
     public function getSchemaDiff()
     {
+        $diff = new SchemaDiff();
         $comparator = new Comparator();
 
-        return $comparator->compare(
-            $this->conn->getSchemaManager()->createSchema(),
-            $this->schema
+        $tableDiff = $comparator->diffTable(
+            $this->conn->getSchemaManager()->createSchema()->getTable($this->tableName),
+            $this->schema->getTable($this->tableName)
         );
+
+        if (false !== $tableDiff) {
+            $diff->changedTables[$this->tableName] = $tableDiff;
+        }
+
+        return $diff;
     }
 
     protected function executeQueries(array $queries, \Closure $logger = null)
