@@ -169,6 +169,19 @@ lexik_monolog_browser:
 
 or quite simply with the Symfony way by create a template on `app/Resources/LexikMonologBrowserBundle/views/layout.html.twig`.
 
+Updating the bundle
+-------------------
+
+At each bundle updates, be careful to potential schema updates and because Monolog entries table is disconnected from the rest of your Doctrine entities or models, you have to manualy update the schema.
+
+The bundle comes with a `schema-update` command but in some cases, like on renaming columns, the default behavior is not perfect and you may have a look to Doctrine Migrations (you can read an example on PR #2).
+
+You can execute the command below to visualize SQL diff and execute schema updates:
+
+```
+./app/console lexik:monolog-browser:schema-update
+```
+
 ToDo
 ----
 

@@ -43,9 +43,9 @@ class WebExtendedProcessor
             return $record;
         }
 
-        $record['server'] = $this->serverData;
-        $record['post']   = $this->postData;
-        $record['get']    = $this->getData;
+        $record['http_server'] = $this->serverData;
+        $record['http_post']   = $this->postData;
+        $record['http_get']    = $this->getData;
 
         return $record;
     }

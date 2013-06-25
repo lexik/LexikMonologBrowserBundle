@@ -4,6 +4,8 @@ namespace Lexik\Bundle\MonologBrowserBundle\Model;
 
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Schema\SchemaDiff;
+use Doctrine\DBAL\Schema\Comparator;
 
 /**
  * @author Jeremy Barthe <j.barthe@lexik.fr>
@@ -15,6 +17,8 @@ class SchemaBuilder
      */
     protected $conn;
 
+    protected $tableName;
+
     /**
      * @var Schema $schema
      */
@@ -22,11 +26,12 @@ class SchemaBuilder
 
     public function __construct(Connection $conn, $tableName)
     {
-        $this->conn = $conn;
+        $this->conn      = $conn;
+        $this->tableName = $tableName;
 
         $this->schema = new Schema();
 
-        $entryTable = $this->schema->createTable($tableName);
+        $entryTable = $this->schema->createTable($this->tableName);
         $entryTable->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement' => true));
         $entryTable->addColumn('channel', 'string', array('length' => 255, 'notNull' => true));
         $entryTable->addColumn('level', 'integer', array('notNull' => true));
@@ -35,20 +40,53 @@ class SchemaBuilder
         $entryTable->addColumn('datetime', 'datetime', array('notNull' => true));
         $entryTable->addColumn('context', 'text');
         $entryTable->addColumn('extra', 'text');
-        $entryTable->addColumn('server', 'text');
-        $entryTable->addColumn('post', 'text');
-        $entryTable->addColumn('get', 'text');
+        $entryTable->addColumn('http_server', 'text');
+        $entryTable->addColumn('http_post', 'text');
+        $entryTable->addColumn('http_get', 'text');
         $entryTable->setPrimaryKey(array('id'));
     }
 
-    public function create(\Closure $logger)
+    public function create(\Closure $logger = null)
+    {
+        $queries = $this->schema->toSql($this->conn->getDatabasePlatform());
+
+        $this->executeQueries($queries, $logger);
+    }
+
+    public function update(\Closure $logger = null)
+    {
+        $queries = $this->getSchemaDiff()->toSaveSql($this->conn->getDatabasePlatform());
+
+        $this->executeQueries($queries, $logger);
+    }
+
+    public function getSchemaDiff()
+    {
+        $diff = new SchemaDiff();
+        $comparator = new Comparator();
+
+        $tableDiff = $comparator->diffTable(
+            $this->conn->getSchemaManager()->createSchema()->getTable($this->tableName),
+            $this->schema->getTable($this->tableName)
+        );
+
+        if (false !== $tableDiff) {
+            $diff->changedTables[$this->tableName] = $tableDiff;
+        }
+
+        return $diff;
+    }
+
+    protected function executeQueries(array $queries, \Closure $logger = null)
     {
         $this->conn->beginTransaction();
 
         try {
-            $queries = $this->schema->toSql($this->conn->getDatabasePlatform());
             foreach ($queries as $query) {
-                $logger($query);
+                if (null !== $logger) {
+                    $logger($query);
+                }
+
                 $this->conn->query($query);
             }
 
