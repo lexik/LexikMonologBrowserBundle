@@ -31,11 +31,11 @@ class Log
         $this->levelName  = $data['level_name'];
         $this->message    = $data['message'];
         $this->date       = new \DateTime($data['datetime']);
-        $this->context    = isset($data['context']) ? json_decode($data['context'], true) : array();
-        $this->extra      = isset($data['extra'])   ? json_decode($data['extra'], true)   : array();
-        $this->serverData = isset($data['server'])  ? json_decode($data['server'], true)  : array();
-        $this->postData   = isset($data['post'])    ? json_decode($data['post'], true)    : array();
-        $this->getData    = isset($data['get'])     ? json_decode($data['get'], true)     : array();
+        $this->context    = isset($data['context'])     ? json_decode($data['context'], true)     : array();
+        $this->extra      = isset($data['extra'])       ? json_decode($data['extra'], true)       : array();
+        $this->serverData = isset($data['http_server']) ? json_decode($data['http_server'], true) : array();
+        $this->postData   = isset($data['http_post'])   ? json_decode($data['http_post'], true)   : array();
+        $this->getData    = isset($data['http_get'])    ? json_decode($data['http_get'], true)    : array();
     }
 
     public function __toString()
