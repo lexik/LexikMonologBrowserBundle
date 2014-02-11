@@ -4,8 +4,12 @@ php:
     - 5.3
     - 5.4
 
+env:
+    - SYMFONY_VERSION=2.3.*
+    - SYMFONY_VERSION=2.4.*
+
 before_script:
-    - curl -s http://getcomposer.org/installer | php
-    - php composer.phar install
+    - composer require symfony/framework-bundle:${SYMFONY_VERSION} --no-update
+    - composer update --dev --prefer-source
 
 script: phpunit
