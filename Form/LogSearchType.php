@@ -17,6 +17,9 @@ use Doctrine\DBAL\Connection;
  */
 class LogSearchType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -73,10 +76,11 @@ class LogSearchType extends AbstractType
         });
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        parent::setDefaultOptions($resolver);
-
         $resolver
             ->setRequired(array(
                 'query_builder',
@@ -92,6 +96,9 @@ class LogSearchType extends AbstractType
         ;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'search';

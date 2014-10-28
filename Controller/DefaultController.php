@@ -3,14 +3,22 @@
 namespace Lexik\Bundle\MonologBrowserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 use Doctrine\DBAL\DBALException;
 
 use Lexik\Bundle\MonologBrowserBundle\Form\LogSearchType;
 
+/**
+ * @author Jeremy Barthe <j.barthe@lexik.fr>
+ */
 class DefaultController extends Controller
 {
-    public function indexAction()
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexAction(Request $request)
     {
         try {
             $query = $this->getLogRepository()->getLogsQueryBuilder();
@@ -20,11 +28,11 @@ class DefaultController extends Controller
                 'log_levels'    => $this->getLogRepository()->getLogsLevel(),
             ));
 
-            $filter->bind($this->get('request'));
+            $filter->submit($request->get($filter->getName()));
 
             $pagination = $this->get('knp_paginator')->paginate(
                 $query,
-                $this->get('request')->query->get('page', 1),
+                $request->query->get('page', 1),
                 $this->container->getParameter('lexik_monolog_browser.logs_per_page')
             );
         } catch (DBALException $e) {
@@ -39,7 +47,13 @@ class DefaultController extends Controller
         ));
     }
 
-    public function showAction($id)
+    /**
+     * @param Request $request
+     * @param integer $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function showAction(Request $request, $id)
     {
         $log = $this->getLogRepository()->getLogById($id);
 
@@ -51,7 +65,7 @@ class DefaultController extends Controller
 
         $similarLogs = $this->get('knp_paginator')->paginate(
             $similarLogsQuery,
-            $this->get('request')->query->get('page', 1),
+            $request->query->get('page', 1),
             10
         );
 
@@ -65,7 +79,7 @@ class DefaultController extends Controller
     /**
      * @return string
      */
-    public function getBaseLayout()
+    protected function getBaseLayout()
     {
         return $this->container->getParameter('lexik_monolog_browser.base_layout');
     }

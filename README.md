@@ -55,6 +55,8 @@ First of all, you need to configure the Doctrine DBAL connection to use in the h
 
 **By using an existing Doctrine connection:**
 
+Note: we set the `logging` and `profiling` option to false to avoid DI circular reference.
+
 ``` yaml
 # app/config/config.yml
 doctrine:
@@ -63,11 +65,12 @@ doctrine:
             default:
                 ...
             monolog:
-                driver:   pdo_sqlite
-                dbname:   monolog
-                path:     %kernel.root_dir%/cache/monolog2.db
-                charset:  UTF8
-                logging:  false
+                driver:    pdo_sqlite
+                dbname:    monolog
+                path:      %kernel.root_dir%/cache/monolog2.db
+                charset:   UTF8
+                logging:   false
+                profiling: false
 
 lexik_monolog_browser:
     doctrine:
