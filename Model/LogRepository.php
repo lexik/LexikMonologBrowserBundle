@@ -47,10 +47,10 @@ class LogRepository
     public function getLogsQueryBuilder()
     {
         return $this->createQueryBuilder()
-                    ->select('l.id, l.channel, l.level, l.level_name, l.message, l.datetime, COUNT(l.id) AS count')
+                    ->select('l.channel, l.level, l.level_name, l.message, MAX(l.id) AS id, MAX(l.datetime) AS datetime, COUNT(l.id) AS count')
                     ->from($this->tableName, 'l')
-                    ->groupBy('l.message, l.channel, l.level')
-                    ->orderBy('l.datetime', 'DESC');
+                    ->groupBy('l.channel, l.level, l.level_name, l.message')
+                    ->orderBy('datetime', 'DESC');
     }
 
     /**
@@ -88,12 +88,12 @@ class LogRepository
                     ->select('l.id, l.channel, l.level, l.level_name, l.message, l.datetime')
                     ->from($this->tableName, 'l')
                     ->andWhere('l.message = :message')
-                    ->setParameter(':message', $log->getMessage())
                     ->andWhere('l.channel = :channel')
-                    ->setParameter(':channel', $log->getChannel())
                     ->andWhere('l.level = :level')
-                    ->setParameter(':level', $log->getLevel())
                     ->andWhere('l.id != :id')
+                    ->setParameter(':message', $log->getMessage())
+                    ->setParameter(':channel', $log->getChannel())
+                    ->setParameter(':level', $log->getLevel())
                     ->setParameter(':id', $log->getId());
     }
 
@@ -107,7 +107,7 @@ class LogRepository
         $levels = $this->createQueryBuilder()
                        ->select('l.level, l.level_name, COUNT(l.id) AS count')
                        ->from($this->tableName, 'l')
-                       ->groupBy('l.level')
+                       ->groupBy('l.level, l.level_name')
                        ->orderBy('l.level', 'DESC')
                        ->execute()
                        ->fetchAll();
