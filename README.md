@@ -3,8 +3,8 @@ LexikMonologBrowserBundle
 
 [![Build Status](https://secure.travis-ci.org/lexik/LexikMonologBrowserBundle.png)](http://travis-ci.org/lexik/LexikMonologBrowserBundle)
 ![Project Status](http://stillmaintained.com/lexik/LexikMonologBrowserBundle.png)
-
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d73bade1-4158-4085-aab8-1042d3704a73/big.png)](https://insight.sensiolabs.com/projects/d73bade1-4158-4085-aab8-1042d3704a73)
+[![Latest Stable Version](https://poser.pugx.org/lexik/monolog-browser-bundle/v/stable)](https://packagist.org/packages/lexik/monolog-browser-bundle)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d73bade1-4158-4085-aab8-1042d3704a73/mini.png)](https://insight.sensiolabs.com/projects/d73bade1-4158-4085-aab8-1042d3704a73)
 
 This Symfony2 bundle provides a [Doctrine DBAL](https://github.com/doctrine/dbal) handler for [Monolog](https://github.com/Seldaek/monolog) and a web UI to display log entries. You can list, filter and paginate logs as you can see on the screenshot bellow:
 
