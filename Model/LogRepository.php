@@ -74,6 +74,22 @@ class LogRepository
             return new Log($log);
         }
     }
+    
+    /**
+     * Retrieve last log entry.
+     *
+     * @return Log|null
+     */
+    public function getLastLog()
+    {
+        $log = $this->createQueryBuilder()
+                    ->select('l.*')
+                    ->from($this->tableName, 'l')
+                    ->orderBy('l.id', 'DESC')
+                    ->setMaxResults(1)
+                    ->execute()
+                    ->fetch()
+    }
 
     /**
      * Retrieve similar logs of the given one.
