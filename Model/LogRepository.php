@@ -88,7 +88,11 @@ class LogRepository
                     ->orderBy('l.id', 'DESC')
                     ->setMaxResults(1)
                     ->execute()
-                    ->fetch()
+                    ->fetch();
+        
+        if (false !== $log) {
+            return new Log($log);
+        }
     }
 
     /**
