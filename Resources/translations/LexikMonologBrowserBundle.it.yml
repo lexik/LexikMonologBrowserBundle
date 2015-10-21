@@ -1,0 +1,15 @@
+log:
+    search:
+        term:       Ricerca (messaggio o channel)
+        level:      Livello
+        date_from:  Da
+        date_to:    A
+    results:
+        datetime:   Data
+        message:    Messaggio
+    show:
+        back:       Ritorna ai logs
+        extra:      Extra
+        context:    Contesto
+        request:    Rechiesta
+        similar:    Logs simili
