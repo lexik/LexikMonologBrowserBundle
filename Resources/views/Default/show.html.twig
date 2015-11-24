@@ -33,19 +33,20 @@
             <li><a href="#similar" data-toggle="tab">{{ 'log.show.similar' | trans }} {{ utils.render_count_badge(similar_logs | length) }}</a></li>
         </ul>
         <div class="tab-content">
+            {% import _self as show_macros %}
             <div class="tab-pane active" id="extra">
-                {{ _self.render_data_table(log.extra) }}
+                {{ show_macros.render_data_table(log.extra) }}
             </div>
             <div class="tab-pane" id="context">
-                {{ _self.render_data_table(log.context) }}
+                {{ show_macros.render_data_table(log.context) }}
             </div>
             <div class="tab-pane" id="request">
                 <h2>SERVER</h2>
-                {{ _self.render_data_table(log.serverData) }}
+                {{ show_macros.render_data_table(log.serverData) }}
                 <h2>POST</h2>
-                {{ _self.render_data_table(log.postData) }}
+                {{ show_macros.render_data_table(log.postData) }}
                 <h2>GET</h2>
-                {{ _self.render_data_table(log.getData) }}
+                {{ show_macros.render_data_table(log.getData) }}
             </div>
             <div class="tab-pane" id="similar">
                 {% if similar_logs | length %}
