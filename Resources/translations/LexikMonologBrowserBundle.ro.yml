@@ -1,0 +1,15 @@
+log:
+    search:
+        term:       Căutare (mesaj sau canal)
+        level:      Nivel
+        date_from:  De la
+        date_to:    Până la
+    results:
+        datetime:   Dată
+        message:    Mesaj
+    show:
+        back:       Înapoi la jurnal
+        extra:      Extra
+        context:    Context
+        request:    Cerere
+        similar:    Jurnale similare
