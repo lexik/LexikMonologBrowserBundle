@@ -4,11 +4,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="lexik_monolog_browser_index" pattern="/">
+    <route id="lexik_monolog_browser_index" path="/">
         <default key="_controller">LexikMonologBrowserBundle:Default:index</default>
     </route>
 
-    <route id="lexik_monolog_browser_show" pattern="/{id}/show">
+    <route id="lexik_monolog_browser_show" path="/{id}/show">
         <default key="_controller">LexikMonologBrowserBundle:Default:show</default>
     </route>
 </routes>
