@@ -2,7 +2,6 @@ LexikMonologBrowserBundle
 =========================
 
 [![Build Status](https://secure.travis-ci.org/lexik/LexikMonologBrowserBundle.png)](http://travis-ci.org/lexik/LexikMonologBrowserBundle)
-![Project Status](http://stillmaintained.com/lexik/LexikMonologBrowserBundle.png)
 [![Latest Stable Version](https://poser.pugx.org/lexik/monolog-browser-bundle/v/stable)](https://packagist.org/packages/lexik/monolog-browser-bundle)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/d73bade1-4158-4085-aab8-1042d3704a73/mini.png)](https://insight.sensiolabs.com/projects/d73bade1-4158-4085-aab8-1042d3704a73)
 
